@@ -75,11 +75,11 @@ class SIDDSmallDataset(Dataset):
                  limit=None):
         self.root_dir = root_dir
         self.data_type = data_type
-        self.input_dirs = pd.Series(glob.glob(f"{root_dir}/{data_type}/SIDD/input_crops/**")).tolist()
-        self.target_dirs = pd.Series(glob.glob(f"{root_dir}/{data_type}/SIDD/target_crops/**")).tolist()
+        self.input_dirs = pd.Series(glob.glob(f"{root_dir}/{data_type}/shabby/input/**")).tolist()
+        self.target_dirs = pd.Series(glob.glob(f"{root_dir}/{data_type}/shabby/target/**")).tolist()
         self.load_fake = load_fake
         if load_fake:
-            self.input_dirs = pd.Series(glob.glob(f"{root_dir}/{data_type}/SIDD/noisy_crops/**")).tolist()
+            self.input_dirs = pd.Series(glob.glob(f"{root_dir}/{data_type}/shabby/noisy/**")).tolist()
 
         if random_load:
             shuffle = list(zip(self.input_dirs, self.target_dirs))
@@ -142,8 +142,8 @@ class SIDDSmallDataset(Dataset):
 
     def generate_noise_image(self, workers):
         print(f'Start Processing with {workers} workers')
-        if not os.path.exists(f'{self.root_dir}/{self.data_type}/SIDD/noisy_crops/'):
-            os.mkdir(f'{self.root_dir}/{self.data_type}/SIDD/noisy_crops/')
+        if not os.path.exists(f'{self.root_dir}/{self.data_type}/shabby/noisy/'):
+            os.mkdir(f'{self.root_dir}/{self.data_type}/shabby/noisy/')
         process_pool = []
         for i in range(workers):
             proc = mp.Process(target=self.__process_fake_noise_iamge, args=(i, workers,))

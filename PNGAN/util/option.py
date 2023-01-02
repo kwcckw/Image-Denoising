@@ -10,7 +10,7 @@ parser.add_argument('--template', default='.',
 
 # Hardware specifications
 parser.add_argument('--n_threads', type=int, default=8, help='number of threads for dataset loading')
-parser.add_argument('--cpu', action='store_true', default=True, help='use cpu only')
+parser.add_argument('--cpu', action='store_true', default=False, help='use cpu only')
 parser.add_argument('--n_GPUs', type=int, default=1,
                     help='number of GPUs')
 parser.add_argument('--seed', type=int, default=1,
@@ -25,9 +25,9 @@ parser.add_argument('--data_test', type=str, default='SIDD',
 parser.add_argument('--benchmark_noise', action='store_true',
                     help='use noisy benchmark sets')
 parser.add_argument('--partial_data', action='store_true', help='Only use part data')
-parser.add_argument('--n_train', type=int, default=20000,
+parser.add_argument('--n_train', type=int, default=981,
                     help='number of training set')
-parser.add_argument('--n_val', type=int, default=2000,
+parser.add_argument('--n_val', type=int, default=290,
                     help='number of validation set')
 parser.add_argument('--ext', type=str, default='sep_reset',
                     help='dataset file extension')
@@ -35,9 +35,9 @@ parser.add_argument('--noise_g', default='1',
                     help='Gaussian Noise')
 
 # parser.add_argument('--scale', default='4', help='super resolution scale')
-parser.add_argument('--patch_size', type=int, default=128,
+parser.add_argument('--patch_size', type=int, default=400,
                     help='output patch size')
-parser.add_argument('--predict_patch_size', type=int, default=800,
+parser.add_argument('--predict_patch_size', type=int, default=400,
                     help='predict patch size')
 parser.add_argument('--rgb_range', type=int, default=255,
                     help='maximum value of RGB')
@@ -68,11 +68,11 @@ parser.add_argument('--precision', type=str, default='single',
 # Training specifications
 parser.add_argument('--reset', action='store_true',
                     help='reset the training')
-parser.add_argument('--test_every', type=int, default=1000,
+parser.add_argument('--test_every', type=int, default=100,
                     help='do test per every N batches')
-parser.add_argument('--epochs', type=int, default=100,
+parser.add_argument('--epochs', type=int, default=1,
                     help='number of epochs to train')
-parser.add_argument('--batch_size', type=int, default=8,
+parser.add_argument('--batch_size', type=int, default=2,
                     help='input batch size for training')
 parser.add_argument('--split_batch', type=int, default=1,
                     help='split the batch into smaller chunks')
