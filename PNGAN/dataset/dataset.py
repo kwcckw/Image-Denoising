@@ -1,3 +1,4 @@
+import cv2
 import random
 import glob
 import pandas as pd
@@ -10,6 +11,7 @@ from PIL import Image
 from torch.utils.data import Dataset
 import multiprocessing as mp
 import argparse
+
 
 default_transform = transforms.Compose([
     transforms.RandomHorizontalFlip(0.5),
@@ -101,8 +103,22 @@ class SIDDSmallDataset(Dataset):
         if self.load_fake:
             return torch.load(self.input_dirs[idx])
 
-        clean = Image.open(self.target_dirs[idx])
-        true_noisy = Image.open(self.input_dirs[idx])
+
+        clean = cv2.imread(self.target_dirs[idx])
+        true_noisy = cv2.imread(self.input_dirs[idx])
+        
+        if len(clean.shape)<3:
+            clean = cv2.cvtColor(clean, cv2.COLOR_GRAY2RGB)
+        if len(true_noisy.shape)<3:
+            true_noisy = cv2.cvtColor(true_noisy, cv2.COLOR_GRAY2RGB)
+        
+    
+        clean = Image.fromarray(clean)
+        true_noisy  = Image.fromarray(true_noisy )
+        
+        
+        #clean = Image.open(self.target_dirs[idx])
+        #true_noisy = Image.open(self.input_dirs[idx])
 
         if self.transform:
             state = torch.get_rng_state()
@@ -114,7 +130,7 @@ class SIDDSmallDataset(Dataset):
 
         return clean, true_noisy, fake_noisy
 
-    def __process_fake_noise_iamge(self, work_id, worker_num):
+    def __process_fake_noise_image(self, work_id, worker_num):
         process = tqdm.tqdm(range(int(len(self.input_dirs) / worker_num) + 1))
         for rounds in process:
             idx = rounds * worker_num + work_id
