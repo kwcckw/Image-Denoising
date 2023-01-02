@@ -10,7 +10,7 @@ parser.add_argument('--template', default='.',
 
 # Hardware specifications
 parser.add_argument('--n_threads', type=int, default=8, help='number of threads for dataset loading')
-parser.add_argument('--cpu', action='store_true', default=False, help='use cpu only')
+parser.add_argument('--cpu', default=False, help='use cpu only')
 parser.add_argument('--n_GPUs', type=int, default=1,
                     help='number of GPUs')
 parser.add_argument('--seed', type=int, default=1,
