@@ -132,7 +132,7 @@ parser.add_argument('--resume', type=int, default=0,
                     help='resume from specific checkpoint')
 parser.add_argument('--print_model', action='store_true',
                     help='print model')
-parser.add_argument('--save_models', type=bool, default=True,,
+parser.add_argument('--save_models', type=bool, default=True,
                     help='save all intermediate models')
 parser.add_argument('--print_every', type=int, default=100,
                     help='how many batches to wait before logging training status')
